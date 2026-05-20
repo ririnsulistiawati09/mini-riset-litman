@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Poster Mini Riset</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #e8eaf0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px 16px;
+    min-height: 100vh;
+  }
+
+  .poster {
+    width: 794px;
+    min-height: 1123px;
+    background: #0d1117;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+  }
+
+  /* BG DECORATIONS */
+  .bg-circle1 {
+    position: absolute; top: -120px; right: -100px;
+    width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(83,74,183,0.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bg-circle2 {
+    position: absolute; top: 180px; left: -80px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(29,158,117,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bg-circle3 {
+    position: absolute; bottom: 200px; right: -60px;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(216,90,48,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bg-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .inner { position: relative; padding: 36px 40px 32px; }
+
+  /* HEADER */
+  .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; }
+  .header-left { flex: 1; }
+  .tag-row { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; }
+  .tag-purple { background: rgba(127,119,221,0.2); color: #AFA9EC; border: 1px solid rgba(127,119,221,0.3); }
+  .tag-teal   { background: rgba(29,158,117,0.2); color: #5DCAA5; border: 1px solid rgba(29,158,117,0.3); }
+  .tag-gray   { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.12); }
+
+  .main-title { font-family: 'DM Serif Display', serif; font-size: 34px; line-height: 1.15; color: #fff; }
+  .main-title em { color: #9FE1CB; font-style: italic; }
+  .subtitle { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 8px; }
+
+  /* STAT BOXES */
+  .stats-row { display: flex; gap: 10px; margin-bottom: 24px; }
+  .stat-box { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px 16px; text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 900; line-height: 1; }
+  .stat-num sup { font-size: 14px; font-weight: 600; }
+  .stat-label { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 4px; letter-spacing: 0.5px; }
+  .sn-purple { color: #AFA9EC; }
+  .sn-teal { color: #5DCAA5; }
+  .sn-amber { color: #EF9F27; }
+  .sn-coral { color: #F0997B; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 22px; }
+
+  /* MAIN GRID */
+  .main-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .col-span2 { grid-column: span 2; }
+
+  /* SECTION CARD */
+  .sec { border-radius: 12px; padding: 16px 18px; }
+  .sec-dark { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+  .sec-purple { background: rgba(83,74,183,0.15); border: 1px solid rgba(127,119,221,0.25); }
+  .sec-teal { background: rgba(15,110,86,0.2); border: 1px solid rgba(29,158,117,0.3); }
+  .sec-coral { background: rgba(153,60,29,0.18); border: 1px solid rgba(216,90,48,0.28); }
+  .sec-amber { background: rgba(186,117,23,0.15); border: 1px solid rgba(239,159,39,0.25); }
+  .sec-blue  { background: rgba(24,95,165,0.15); border: 1px solid rgba(55,138,221,0.25); }
+
+  .sec-label { font-size: 9px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 8px; }
+  .sl-p { color: #AFA9EC; }
+  .sl-t { color: #5DCAA5; }
+  .sl-c { color: #F0997B; }
+  .sl-a { color: #EF9F27; }
+  .sl-b { color: #85B7EB; }
+  .sl-w { color: rgba(255,255,255,0.4); }
+
+  .sec-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .sec-body { font-size: 11.5px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+  /* BAR */
+  .bar-row { margin-bottom: 8px; }
+  .bar-meta { display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.55); margin-bottom: 3px; }
+  .bar-meta strong { color: #fff; }
+  .bar-track { height: 7px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 6px; }
+
+  /* SCALE TABLE */
+  .scale-tbl { width: 100%; margin-top: 4px; }
+  .scale-tbl tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .scale-tbl td { padding: 5px 2px; font-size: 11px; }
+  .scale-tbl .td-label { color: rgba(255,255,255,0.65); width: 58%; }
+  .scale-tbl .td-score { font-weight: 800; font-size: 13px; width: 14%; text-align: center; }
+  .scale-tbl .td-bar { width: 28%; }
+  .mini-bar { height: 5px; border-radius: 5px; }
+  .score-hi { color: #5DCAA5; }
+  .score-md { color: #EF9F27; }
+  .score-lo { color: #F0997B; }
+
+  /* IMPACT LIST */
+  .impact-col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .impact-box { border-radius: 8px; padding: 10px 12px; }
+  .ib-pos { background: rgba(29,158,117,0.15); border: 1px solid rgba(29,158,117,0.25); }
+  .ib-neg { background: rgba(216,90,48,0.15); border: 1px solid rgba(216,90,48,0.25); }
+  .ib-title { font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .ib-pos .ib-title { color: #5DCAA5; }
+  .ib-neg .ib-title { color: #F0997B; }
+  .ib-item { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.5; margin-bottom: 3px; display: flex; gap: 5px; }
+  .ib-item::before { content: '•'; flex-shrink: 0; }
+  .ib-pos .ib-item::before { color: #5DCAA5; }
+  .ib-neg .ib-item::before { color: #F0997B; }
+
+  /* SARAN */
+  .saran-list { margin-top: 6px; }
+  .saran-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+  .saran-num { min-width: 22px; height: 22px; background: rgba(175,169,236,0.25); color: #AFA9EC; border-radius: 6px; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .saran-text { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+  .saran-text strong { color: #AFA9EC; }
+
+  /* CONCL */
+  .concl-list { margin-top: 6px; }
+  .concl-item { display: flex; gap: 8px; margin-bottom: 7px; font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+  .concl-dot { width: 6px; height: 6px; border-radius: 50%; background: #5DCAA5; flex-shrink: 0; margin-top: 5px; }
+
+  /* REF ROW */
+  .ref-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+  .ref-pill { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 4px 10px; font-size: 10px; color: rgba(255,255,255,0.4); }
+  .ref-pill span { color: #9FE1CB; font-weight: 700; margin-right: 3px; }
+
+  /* FOOTER */
+  .poster-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.07); }
+  .footer-left { font-size: 11px; color: rgba(255,255,255,0.3); }
+  .footer-right { font-size: 11px; color: rgba(255,255,255,0.2); }
+
+  /* HIGHLIGHT STRIP */
+  .strip { background: linear-gradient(90deg, rgba(83,74,183,0.4), rgba(29,158,117,0.3)); border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .strip-icon { font-size: 20px; }
+  .strip-text { font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.5; font-style: italic; }
+  .strip-text strong { color: #9FE1CB; }
+
+  @media print {
+    body { background: #0d1117; padding: 0; }
+    .poster { box-shadow: none; border-radius: 0; min-height: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="bg-grid"></div>
+  <div class="bg-circle1"></div>
+  <div class="bg-circle2"></div>
+  <div class="bg-circle3"></div>
+
+  <div class="inner">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-left">
+        <div class="tag-row">
+          <span class="tag tag-purple">📋 Mini Riset</span>
+          <span class="tag tag-teal">🎓 Teknik Elektro</span>
+          <span class="tag tag-gray">📅 2025</span>
+        </div>
+        <div class="main-title">Pengaruh <em>Game Online</em><br>terhadap Kesehatan Mental<br>Mahasiswa</div>
+        <div class="subtitle">Metode Kuesioner · 10 Responden · Studi Deskriptif Kuantitatif</div>
+      </div>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num sn-purple">10</div>
+        <div class="stat-label">Responden</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num sn-teal">70<sup>%</sup></div>
+        <div class="stat-label">Aktif Bermain</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num sn-amber">60<sup>%</sup></div>
+        <div class="stat-label">&gt;3 Jam/Hari</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num sn-coral">60<sup>%</sup></div>
+        <div class="stat-label">Bermain Malam</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:#85B7EB;">8</div>
+        <div class="stat-label">Indikator Mental</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- MAIN GRID ROW 1 -->
+    <div class="main-grid">
+
+      <!-- Profil -->
+      <div class="sec sec-purple">
+        <div class="sec-label sl-p">👤 Profil Responden</div>
+        <div class="sec-title">Demografi</div>
+        <div class="bar-row">
+          <div class="bar-meta">Laki-laki <strong>50%</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width:50%;background:#7F77DD"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-meta">Perempuan <strong>50%</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width:50%;background:#5DCAA5"></div></div>
+        </div>
+        <div class="bar-row" style="margin-top:10px">
+          <div class="bar-meta">Usia 20–22 th <strong>60%</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%;background:#AFA9EC"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-meta">Semester 5–6 <strong>70%</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width:70%;background:#7F77DD"></div></div>
+        </div>
+      </div>
+
+      <!-- Pola Bermain -->
+      <div class="sec sec-teal">
+        <div class="sec-label sl-t">🎮 Pola Bermain</div>
+        <div class="sec-title">Durasi per Hari</div>
+        <div class="bar-row">
+          <div class="bar-meta">&lt; 1 jam <strong>30%</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width:30%;background:#5DCAA5"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-meta">1–3 jam <strong>10%</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width:10%;background:#5DCAA5"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-meta">3–5 jam <strong>40%</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width:40%;background:#EF9F27"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-meta">&gt; 5 jam <strong>20%</strong></div>
+          <div class="bar-track"><div class="bar-fill" style="width:20%;background:#F0997B"></div></div>
+        </div>
+        <div style="margin-top:10px; font-size:11px; color:#5DCAA5; background:rgba(29,158,117,0.15); border-radius:6px; padding:6px 10px;">
+          ⚠️ 60% bermain &gt;3 jam/hari — berisiko tinggi
+        </div>
+      </div>
+
+      <!-- Waktu Bermain -->
+      <div class="sec sec-coral">
+        <div class="sec-label sl-c">🕐 Waktu Bermain</div>
+        <div class="sec-title">Kapan Paling Sering?</div>
+        <div style="text-align:center; padding: 10px 0 6px;">
+          <div style="font-size:40px; font-weight:900; color:#F0997B; line-height:1;">60%</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.5); margin-top:2px;">🌙 Malam – Dini Hari</div>
+        </div>
+        <div style="height:1px; background:rgba(255,255,255,0.06); margin: 8px 0;"></div>
+        <div style="text-align:center; padding: 4px 0;">
+          <div style="font-size:26px; font-weight:800; color:rgba(255,255,255,0.4); line-height:1;">40%</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.35); margin-top:2px;">☀️ Setelah Kuliah</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- STRIP QUOTE -->
+    <div class="strip">
+      <div class="strip-icon">💬</div>
+      <div class="strip-text">"Semakin tinggi durasi bermain per hari, semakin besar potensi gangguan pada aspek <strong>tidur, konsentrasi, dan kestabilan emosi</strong> mahasiswa."</div>
+    </div>
+
+    <!-- MAIN GRID ROW 2 -->
+    <div class="main-grid" style="margin-bottom:14px;">
+
+      <!-- Skala Likert -->
+      <div class="sec sec-amber col-span2">
+        <div class="sec-label sl-a">📊 Hasil Skala Likert 1–5</div>
+        <div class="sec-title">Skor Indikator Kesehatan Mental</div>
+        <table class="scale-tbl">
+          <tr>
+            <td class="td-label">Mengurangi stres kuliah</td>
+            <td class="td-score score-hi">3.9</td>
+            <td class="td-bar"><div class="mini-bar" style="width:78%;background:#1D9E75"></div></td>
+          </tr>
+          <tr>
+            <td class="td-label">Suasana hati lebih baik</td>
+            <td class="td-score score-hi">3.7</td>
+            <td class="td-bar"><div class="mini-bar" style="width:74%;background:#1D9E75"></div></td>
+          </tr>
+          <tr>
+            <td class="td-label">Mengorbankan jam tidur</td>
+            <td class="td-score score-md">3.4</td>
+            <td class="td-bar"><div class="mini-bar" style="width:68%;background:#EF9F27"></div></td>
+          </tr>
+          <tr>
+            <td class="td-label">Sulit berkonsentrasi belajar</td>
+            <td class="td-score score-md">3.2</td>
+            <td class="td-bar"><div class="mini-bar" style="width:64%;background:#EF9F27"></div></td>
+          </tr>
+          <tr>
+            <td class="td-label">Mudah marah ketika kalah</td>
+            <td class="td-score score-md">3.1</td>
+            <td class="td-bar"><div class="mini-bar" style="width:62%;background:#EF9F27"></div></td>
+          </tr>
+          <tr>
+            <td class="td-label">Melewatkan tugas/deadline</td>
+            <td class="td-score score-lo">2.6</td>
+            <td class="td-bar"><div class="mini-bar" style="width:52%;background:#D85A30"></div></td>
+          </tr>
+          <tr>
+            <td class="td-label">Cemas saat tidak bisa bermain</td>
+            <td class="td-score score-lo">2.1</td>
+            <td class="td-bar"><div class="mini-bar" style="width:42%;background:#D85A30"></div></td>
+          </tr>
+          <tr>
+            <td class="td-label">Interaksi sosial berkurang</td>
+            <td class="td-score score-lo">1.9</td>
+            <td class="td-bar"><div class="mini-bar" style="width:38%;background:#D85A30"></div></td>
+          </tr>
+        </table>
+        <div style="display:flex; gap:14px; margin-top:10px; font-size:10px; color:rgba(255,255,255,0.4);">
+          <span>🟢 Positif/Tinggi</span>
+          <span>🟡 Sedang</span>
+          <span>🔴 Rendah/Aman</span>
+        </div>
+      </div>
+
+      <!-- Dampak -->
+      <div class="sec sec-blue">
+        <div class="sec-label sl-b">⚖️ Dampak Ditemukan</div>
+        <div class="sec-title">Dua Sisi Game Online</div>
+        <div class="impact-col">
+          <div class="impact-box ib-pos">
+            <div class="ib-title">✅ Positif</div>
+            <div class="ib-item">Meredakan stres</div>
+            <div class="ib-item">Mood lebih baik</div>
+            <div class="ib-item">Sarana relaksasi</div>
+          </div>
+          <div class="impact-box ib-neg">
+            <div class="ib-title">⚠️ Negatif</div>
+            <div class="ib-item">Gangguan tidur</div>
+            <div class="ib-item">Sulit fokus</div>
+            <div class="ib-item">Telat deadline</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM GRID -->
+    <div class="main-grid" style="margin-bottom:0;">
+
+      <!-- Kesimpulan -->
+      <div class="sec sec-teal">
+        <div class="sec-label sl-t">💡 Kesimpulan</div>
+        <div class="concl-list">
+          <div class="concl-item"><div class="concl-dot"></div>Game online berdampak <strong style="color:#fff">dua arah</strong> — bergantung pada intensitas pemakaian.</div>
+          <div class="concl-item"><div class="concl-dot"></div><strong style="color:#fff">Gangguan tidur</strong> adalah dampak negatif paling dominan yang ditemukan.</div>
+          <div class="concl-item"><div class="concl-dot"></div><strong style="color:#fff">Durasi bermain</strong> adalah faktor kunci yang menentukan dampak positif/negatif.</div>
+          <div class="concl-item"><div class="concl-dot"></div>Kecanduan berat belum teridentifikasi dominan, namun perlu diwaspadai.</div>
+        </div>
+      </div>
+
+      <!-- Saran -->
+      <div class="sec sec-purple">
+        <div class="sec-label sl-p">📌 Saran</div>
+        <div class="saran-list">
+          <div class="saran-item">
+            <div class="saran-num">1</div>
+            <div class="saran-text">Batasi bermain <strong>maks. 1–2 jam/hari</strong>, hindari larut malam.</div>
+          </div>
+          <div class="saran-item">
+            <div class="saran-num">2</div>
+            <div class="saran-text">Kampus sediakan <strong>konseling manajemen waktu digital</strong>.</div>
+          </div>
+          <div class="saran-item">
+            <div class="saran-num">3</div>
+            <div class="saran-text">Perluas riset lintas jurusan dengan instrumen <strong>GAS/IGDS9-SF</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Referensi -->
+      <div class="sec sec-dark">
+        <div class="sec-label sl-w">📚 Referensi Utama</div>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
+          <div style="font-size:10.5px; color:rgba(255,255,255,0.45); line-height:1.5;"><span style="color:#9FE1CB; font-weight:700;">2021</span> Zhao et al. — Game & fungsi eksekutif. <em>Front. Psychiatry</em></div>
+          <div style="font-size:10.5px; color:rgba(255,255,255,0.45); line-height:1.5;"><span style="color:#9FE1CB; font-weight:700;">2022</span> Abdel Raouf et al. — Video game disorder. <em>Pan Afr. Med. J.</em></div>
+          <div style="font-size:10.5px; color:rgba(255,255,255,0.45); line-height:1.5;"><span style="color:#9FE1CB; font-weight:700;">2022</span> Alshammari et al. — Game & depresi. <em>J. Clinical Medicine</em></div>
+          <div style="font-size:10.5px; color:rgba(255,255,255,0.45); line-height:1.5;"><span style="color:#9FE1CB; font-weight:700;">2023</span> Deng et al. — Internet & mental health. <em>Front. Psychiatry</em></div>
+          <div style="font-size:10.5px; color:rgba(255,255,255,0.45); line-height:1.5;"><span style="color:#9FE1CB; font-weight:700;">2024</span> APJII — Survei Pengguna Internet Indonesia.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="poster-footer">
+      <div class="footer-left">Mini Riset · Pengaruh Game Online terhadap Kesehatan Mental Mahasiswa · Teknik Elektro</div>
+      <div class="footer-right">© 2025 · Kuesioner / Angket · n=10</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
